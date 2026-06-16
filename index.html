@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Amma Farm House | Private Events & Family Staycation</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FDF9F2;
+      color: #2C2A29;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    button, a, .btn-call, .btn-outline, .btn-terms, .menu-icon, .mobile-menu-close, .dot, .gallery-btn {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --terracotta: #C75C3E;
+      --deep-umber: #4A3B32;
+      --olive-green: #6B705C;
+      --sand: #E8DCCC;
+      --cream-bg: #FCF6EC;
+      --dark-brown: #3E2A21;
+      --warm-beige: #F4EADE;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Header */
+    header {
+      background: rgba(255, 252, 245, 0.96);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 18px rgba(0, 0, 0, 0.04);
+      border-bottom: 1px solid rgba(199, 92, 62, 0.25);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .logo img {
+      height: 55px;
+      width: auto;
+      display: block;
+    }
+    /* Modern Sans-Serif font style for website name - Montserrat */
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark-brown);
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--deep-umber);
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--terracotta);
+    }
+    .menu-icon {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--terracotta);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* Mobile Slide Menu */
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100%;
+      background: #2C2A29;
+      z-index: 2001;
+      transition: right 0.3s ease;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .mobile-menu-overlay.active { right: 0; }
+    .mobile-menu-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      font-size: 1.6rem;
+      color: white;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .mobile-menu-links { margin-top: 3rem; list-style: none; }
+    .mobile-menu-links li { margin: 1.5rem 0; }
+    .mobile-menu-links a { color: #F5EFE8; text-decoration: none; font-size: 1.2rem; font-weight: 500; transition: 0.2s; }
+    .mobile-menu-links a:hover { color: var(--terracotta); }
+    .mobile-social { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 2rem; }
+    .mobile-social a { color: #E8DCCC; font-size: 1.6rem; transition: 0.2s; }
+    .mobile-social a:hover { color: var(--terracotta); }
+    .body-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: none;
+    }
+    .body-overlay.active { display: block; }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 0;
+      padding-top: 74px;
+      background: #000;
+    }
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center 35%;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+      z-index: 1;
+    }
+    .slide.active { opacity: 1; z-index: 2; }
+    .slide-1 { background-image: url('https://scontent.fkhi2-3.fna.fbcdn.net/v/t39.30808-6/487769466_122106321980817526_7478619442702466841_n.jpg?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=RtFrASgv4MEQ7kNvwE9jjVX&_nc_oc=Adqtt_PB7GvZ08i014VWkX2Rg98sHrOFaiOnB6lvhIV4IHYMTBnbLCCIqLOKSTXciOCy9YTfEA6N3eYemmAHpquD&_nc_zt=23&_nc_ht=scontent.fkhi2-3.fna&_nc_gid=Wbyi20zept0iSK9RRDMeKA&_nc_ss=7b2a8&oh=00_Af9-v07GxtdCXTA1WGGIikzKNgXhc37MPk59Kmvp5084-g&oe=6A30E9C2'); }
+    .slide-2 { background-image: url('https://scontent.fkhi2-2.fna.fbcdn.net/v/t39.30808-6/487731079_122104790456817526_2259726650489734023_n.jpg?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=lzN4Ta2i5wwQ7kNvwEnvOx-&_nc_oc=Adokf6zGti0-HXqbQpY-nMmtLpGarcsZcyBgXvZ6NiQJ8D-9Iqx-SXc9mc6Tgnyx2FuE2bGvJ5J-5ot0xKZiizr3&_nc_zt=23&_nc_ht=scontent.fkhi2-2.fna&_nc_gid=A7gagVuSbpMJmU7MuvtnXw&_nc_ss=7b2a8&oh=00_Af-LBDnM6vFhlpaOvSE69IeOA-xUAdRd5Ofbx4bV0fjyOA&oe=6A30D077'); }
+    .slide-3 { background-image: url('https://scontent.fkhi2-2.fna.fbcdn.net/v/t39.30808-6/487352531_122103560840817526_1993525274894109691_n.jpg?stp=dst-jpg_tt6&cstp=mx1600x1196&ctp=s1600x1196&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=CnWBQm3deEIQ7kNvwFVYAJq&_nc_oc=AdpoHtUaQ9aPuAzcsC5vQGGmM3PoNGiHaYFv4b_RzFJ9VuKypGpy1CaanfJxkRVVfhd5WC6gL7fXIeLkMs0b865O&_nc_zt=23&_nc_ht=scontent.fkhi2-2.fna&_nc_gid=q0UOypIBvcDDnnYs7NvdDg&_nc_ss=7b2a8&oh=00_Af8A5RQ7vE8eVRDivvRnttS3hM92spjNHNSOLM11Dq81XA&oe=6A30C7E1'); }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.45), rgba(0,0,0,0.2));
+      z-index: 3;
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 18%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 4;
+      color: white;
+      padding: 0 1.5rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .hero-content h1 { font-size: 4rem; font-weight: 800; font-family: 'Playfair Display', serif; }
+    .hero-content p { font-size: 1.2rem; max-width: 650px; margin: 1rem auto 1.8rem; }
+    
+    .btn-call {
+      background: var(--dark-brown);
+      padding: 0.9rem 2.2rem;
+      font-weight: 700;
+      color: white;
+      border-radius: 5%;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.2s;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      animation: gentlePop 1.2s ease-in-out infinite;
+      border: none;
+      cursor: pointer;
+    }
+    @keyframes gentlePop {
+      0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+      50% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+      100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    }
+    .btn-call:hover { background: #2c1f18; transform: scale(1.02); animation: none; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--terracotta);
+      padding: 0.7rem 1.8rem;
+      color: var(--terracotta);
+      font-weight: 600;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--terracotta); color: white; }
+
+    .btn-terms {
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      margin-top: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .btn-terms:hover { background: #a7472e; transform: translateY(-2px); }
+
+    /* Gallery Section with Overlay & Text */
+    .gallery-section { background: #FAF5EE; padding: 5rem 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 300px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+    .gallery-overlay h3 {
+      color: white;
+      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .gallery-overlay p {
+      color: #f0e6d8;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+    .gallery-btn {
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.85rem;
+    }
+    .gallery-btn:hover {
+      background: white;
+      color: var(--terracotta);
+      transform: translateY(-2px);
+    }
+
+    /* Testimonials Section - BACKGROUND IMAGE WITH HIGH CLARITY */
+    .reviews-section {
+      background: linear-gradient(rgba(62, 42, 33, 0.35), rgba(62, 42, 33, 0.35)), url('https://i.postimg.cc/YCZ8GyRx/image.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #2C2A29;
+    }
+    .reviews-section .section-title { color: #FFFFFF; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
+    .reviews-section .section-title:after { background: var(--terracotta); }
+    
+    /* White review cards */
+    .review-card {
+      background: white;
+      backdrop-filter: none;
+      padding: 1.8rem;
+      border-radius: 24px;
+      border: 1px solid #EDE2D8;
+      color: #2C2A29;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .review-card i.fa-quote-left { color: var(--terracotta); font-size: 1.8rem; margin-bottom: 1rem; display: inline-block; opacity: 0.8; }
+    .review-text { font-style: italic; line-height: 1.6; margin: 0.8rem 0; color: #4A443E; }
+    .reviewer { font-weight: 700; margin-top: 1rem; color: var(--dark-brown); }
+    .stars { color: #FFC107; margin-bottom: 0.5rem; letter-spacing: 2px; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s ease;
+    }
+    .fade-up.appear { opacity: 1; transform: translateY(0); }
+
+    section { padding: 5rem 0; }
+    .section-title {
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: var(--deep-umber);
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 3px;
+      background: var(--terracotta);
+      margin: 0.8rem auto 0;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .amenity-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      transition: 0.3s;
+      border: 1px solid #EDE2D8;
+    }
+    .amenity-card:hover { transform: translateY(-6px); }
+    .amenity-img { width: 100%; height: 220px; object-fit: cover; }
+    .amenity-info { padding: 1.5rem; }
+    .amenity-info i { font-size: 2rem; color: var(--terracotta); margin-bottom: 0.5rem; }
+    .amenity-info h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
+
+    .testimonials-container { position: relative; overflow: hidden; }
+    .reviews-grid {
+      display: flex;
+      gap: 2rem;
+      transition: transform 0.4s ease;
+    }
+    .review-card {
+      flex: 0 0 calc(33.333% - 1.33rem);
+    }
+    @media (max-width: 900px) { .review-card { flex: 0 0 calc(50% - 1rem); } }
+    @media (max-width: 650px) { .review-card { flex: 0 0 100%; } }
+    
+    .swipe-indicators { display: none; justify-content: center; gap: 0.8rem; margin-top: 2rem; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,245,0.4);
+      transition: 0.2s; cursor: pointer;
+    }
+    .dot.active { background: var(--terracotta); width: 24px; border-radius: 10px; }
+    @media (max-width: 650px) { .swipe-indicators { display: flex; } .reviews-grid { cursor: grab; } }
+
+    .terms-section {
+      background: var(--dark-brown);
+      color: #F5EFE8;
+      padding: 3rem 0;
+    }
+    .terms-section .section-title { color: #F5EFE8; }
+    .terms-highlight {
+      background: rgba(255,255,245,0.08);
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 1rem auto;
+      text-align: center;
+    }
+    .terms-list { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1rem 0; }
+    .terms-list span { background: rgba(255,255,245,0.12); padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.85rem; }
+
+    .contact-card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: white;
+      border-radius: 28px;
+      padding: 2rem;
+    }
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      background: #F5EFE8;
+      border-radius: 50%;
+      margin-right: 12px;
+      color: var(--terracotta);
+      font-size: 1.4rem;
+      transition: 0.2s;
+    }
+    .social-icons a:hover { background: var(--terracotta); color: white; }
+    .whatsapp-float {
+      position: fixed; bottom: 30px; right: 30px;
+      background-color: #25D366; color: white;
+      border-radius: 50px; padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; font-weight: 600; z-index: 999;
+    }
+    .whatsapp-float:hover { background-color: #20b359; transform: scale(1.02); }
+    .modal {
+      display: none; position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+      z-index: 2100; align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: #FFFCF8; max-width: 700px; width: 90%;
+      max-height: 85vh; overflow-y: auto; border-radius: 28px;
+      padding: 2rem; position: relative;
+    }
+    .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; color: var(--terracotta); }
+    footer {
+      background: #2C2A29; color: #DCD3CA; padding: 3rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem; margin-bottom: 2rem;
+    }
+    .footer-col h4 { color: #E8DCCC; font-size: 1.2rem; margin-bottom: 1.2rem; }
+    .footer-col p, .footer-col a { color: #B8AA9C; text-decoration: none; line-height: 1.7; font-size: 0.9rem; display: block; margin-bottom: 0.4rem; }
+    .footer-social-icons a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; background: rgba(255,255,245,0.1);
+      border-radius: 50%; color: #E8DCCC; font-size: 1.2rem;
+      margin-right: 0.8rem; transition: 0.2s;
+    }
+    .footer-social-icons a:hover { background: var(--terracotta); color: white; }
+    .copyright { text-align: center; padding-top: 2rem; border-top: 1px solid #4F4943; font-size: 0.8rem; }
+
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+      .hero-content h1 { font-size: 2.5rem; }
+      .section-title { font-size: 2rem; }
+      .whatsapp-float span { display: none; }
+      .whatsapp-float { padding: 12px; border-radius: 50px; }
+      .logo-text { font-size: 1.2rem; }
+      .logo img { height: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <img src="https://i.postimg.cc/L8Gf7VnB/image.png" alt="Amma Farm House Logo">
+        <span class="logo-text">Amma Farm House</span>
+      </div>
+      <button class="menu-icon" id="menuToggleBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#terms">Terms</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="body-overlay" id="bodyOverlay"></div>
+<div class="mobile-menu-overlay" id="mobileMenu">
+  <button class="mobile-menu-close" id="closeMobileMenu"><i class="fas fa-times"></i></button>
+  <ul class="mobile-menu-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#terms">Terms</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="mobile-social">
+    <a href="https://www.instagram.com/amma_farmhouse/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/p/Amma-Farmhouse-61574525783605/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://wa.me/923703304039" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-slides"><div class="slide slide-1 active"></div><div class="slide slide-2"></div><div class="slide slide-3"></div></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Amma Farm House</h1>
+    <p>Create unforgettable memories with your loved ones! The perfect destination for family picnics, staycations, and private events.</p>
+    <a href="tel:+923703304039" class="btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+  </div>
+</section>
+
+<!-- Amenities -->
+<section id="amenities" class="fade-up">
+  <div class="container">
+    <h2 class="section-title">Signature Amenities</h2>
+    <div class="amenities-grid">
+      <div class="amenity-card"><img class="amenity-img" src="https://i.postimg.cc/m23qSjZS/image.png" alt="Accommodation"><div class="amenity-info"><i class="fas fa-bed"></i><h3>Accommodation</h3><p>03 comfortable bedrooms with attached bathrooms. One bedroom is fully Air Conditioned (AC).</p></div></div>
+      <div class="amenity-card"><img class="amenity-img" src="https://i.postimg.cc/66rYs3s3/image.png" alt="Swimming Pools"><div class="amenity-info"><i class="fas fa-swimming-pool"></i><h3>Swimming Pools</h3><p>01 large pool for adults with a slide, and 01 kids' pool. 03 changing rooms & 09 common washrooms.</p></div></div>
+      <div class="amenity-card"><img class="amenity-img" src="https://i.postimg.cc/9Q8LxN6K/image.png" alt="Gaming Area"><div class="amenity-info"><i class="fas fa-gamepad"></i><h3>Gaming Area</h3><p>2 Snooker tables, Carrom board, Rod game, swings for children & 2 LCD TVs.</p></div></div>
+      <div class="amenity-card"><img class="amenity-img" src="https://i.postimg.cc/SRCP376W/image.png" alt="Kitchen"><div class="amenity-info"><i class="fas fa-utensils"></i><h3>Fully Functional Kitchen</h3><p>Complete kitchen with refrigerator. Event space with stage, sofa set and 25-30 chairs.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials with CLEAR BACKGROUND IMAGE -->
+<section id="reviews" class="reviews-section fade-up">
+  <div class="container">
+    <h2 class="section-title">What Our Guests Say</h2>
+    <div class="testimonials-container">
+      <div class="reviews-grid" id="reviewsGrid">
+        <div class="review-card"><i class="fas fa-quote-left"></i><div class="stars">★★★★★</div><p class="review-text">"Absolutely wonderful farmhouse! The pool with slide was a hit with our kids. Very clean, spacious, and the staff was incredibly helpful."</p><p class="reviewer">— Mr & Mrs Hashim</p></div>
+        <div class="review-card"><i class="fas fa-quote-left"></i><div class="stars">★★★★★</div><p class="review-text">"Loved the snooker tables and the football ground. The kitchen was fully equipped and the event space made our family gathering memorable."</p><p class="reviewer">— Bilal Khalid</p></div>
+        <div class="review-card"><i class="fas fa-quote-left"></i><div class="stars">★★★★☆</div><p class="review-text">"Great ambiance and peaceful location. The kids enjoyed the swings and the gaming area. Will definitely come back with friends."</p><p class="reviewer">— Omar Kabeer</p></div>
+        <div class="review-card"><i class="fas fa-quote-left"></i><div class="stars">★★★★★</div><p class="review-text">"One of the best farm stays near Karachi. The management was courteous, facilities were top-notch, and the swimming pool was super clean."</p><p class="reviewer">— Talha Sheikh</p></div>
+      </div>
+      <div class="swipe-indicators" id="swipeDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery with Overlay Text & Buttons -->
+<section id="gallery" class="gallery-section fade-up">
+  <div class="container">
+    <h2 class="section-title">Photo Gallery</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card"><img src="https://i.postimg.cc/76m16Cxv/image.png" alt="Big Garden"><div class="gallery-overlay"><h3>Big Garden</h3><p>Expansive lush lawns for picnics & events</p><button class="gallery-btn" onclick="alert('Explore our beautiful garden spaces!')">View Detail</button></div></div>
+      <div class="gallery-card"><img src="https://i.postimg.cc/gj7vVfXq/image.png" alt="Best Stay"><div class="gallery-overlay"><h3>Best Stay</h3><p>Comfortable rooms with premium amenities</p><button class="gallery-btn" onclick="alert('Experience ultimate comfort at Amma Farm House!')">View Detail</button></div></div>
+      <div class="gallery-card"><img src="https://i.postimg.cc/Kj1T8Jq7/image.png" alt="Outdoor Sitting"><div class="gallery-overlay"><h3>Outdoor Sitting</h3><p>Relaxing seating areas amidst nature</p><button class="gallery-btn" onclick="alert('Enjoy serene outdoor lounging spaces.')">View Detail</button></div></div>
+      <div class="gallery-card"><img src="https://i.postimg.cc/L8337QrF/image.png" alt="Outdoor Dinner"><div class="gallery-overlay"><h3>Outdoor Dinner</h3><p>Candlelit dining under the stars</p><button class="gallery-btn" onclick="alert('Perfect setting for romantic outdoor dinners!')">View Detail</button></div></div>
+      <div class="gallery-card"><img src="https://i.postimg.cc/tgRNHtj3/image.png" alt="Big Pool"><div class="gallery-overlay"><h3>Big Pool</h3><p>Large swimming pool with water slide</p><button class="gallery-btn" onclick="alert('Dive into fun at our massive pool!')">View Detail</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Terms -->
+<section id="terms" class="terms-section fade-up">
+  <div class="container">
+    <h2 class="section-title">House Rules & Policies</h2>
+    <div class="terms-highlight">
+      <h4><i class="fas fa-gavel"></i> Key Terms</h4>
+      <div class="terms-list"><span>Max capacity: 35 people</span><span>Non-refundable advance</span><span>Aerial firing banned</span><span>Damage charges apply</span><span>No spitting / littering</span></div>
+      <p>Advance payments are non-refundable. Guests are responsible for personal belongings. Parents must supervise children near pools.</p>
+      <button class="btn-terms" id="showMoreTermsBtn"><i class="fas fa-file-alt"></i> View complete terms & conditions →</button>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="fade-up">
+  <div class="container">
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="contact-card">
+      <div><p><i class="fas fa-map-marker-alt" style="color: var(--terracotta);"></i> Amma Farmhouse Murad Memon Goht, Malir, Karachi, Pakistan</p><p><i class="fas fa-phone-alt" style="color: var(--terracotta);"></i> +92 370 3304039 &nbsp;|&nbsp; 03122785603</p><p><i class="fas fa-envelope" style="color: var(--terracotta);"></i> bookings@ammafarmhouse.com</p><div class="social-icons" style="margin-top: 1.5rem;"><a href="https://www.instagram.com/amma_farmhouse/" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/p/Amma-Farmhouse-61574525783605/" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923703304039" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
+      <div style="flex:1; background: #F5EFE8; border-radius: 24px; padding: 1rem; text-align: center;"><i class="fas fa-calendar-check fa-2x" style="color: var(--terracotta);"></i><p>Plan your private event or family picnic with us.</p><a href="https://wa.me/923703304039?text=Hello%20Amma%20Farm%20House%2C%20I'm%20interested%20in%20booking%20an%20event." class="btn-outline" target="_blank">Inquire now</a></div>
+    </div>
+  </div>
+</section>
+
+<footer class="fade-up"><div class="container"><div class="footer-grid"><div class="footer-col"><div class="footer-logo"><img src="https://i.postimg.cc/L8Gf7VnB/image.png" alt="Amma Farm House" style="height:45px;"></div><p>A serene farmstay where families create joyful memories.</p></div><div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#amenities">Amenities</a><a href="#reviews">Guest Reviews</a><a href="#gallery">Gallery</a><a href="#terms">Terms & Conditions</a></div><div class="footer-col"><h4>Contact Info</h4><p><i class="fas fa-phone-alt"></i> +92 370 3304039</p><p><i class="fas fa-phone-alt"></i> 03122785603</p><p><i class="fas fa-envelope"></i> bookings@ammafarmhouse.com</p><p><i class="fas fa-map-marker-alt"></i> Amma Farmhouse Murad Memon Goht, Malir, Karachi, Pakistan</p></div><div class="footer-col"><h4>Follow Us</h4><div class="footer-social-icons"><a href="https://www.instagram.com/amma_farmhouse/" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/p/Amma-Farmhouse-61574525783605/" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923703304039" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div></div><div class="copyright">© 2026 Amma Farm House. All rights reserved.</div></div></footer>
+
+<a href="https://wa.me/923703304039?text=Hello%20Amma%20Farm%20House%2C%20I%27m%20interested%20in%20booking." class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i><span>Chat with us</span></a>
+
+<div id="termsModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeModalBtn">&times;</span><h3>Complete Terms & Conditions</h3><hr><ul style="margin-left:1.2rem;"><li><strong>Capacity:</strong> A maximum of 35 people is allowed.</li><li><strong>Cancellation:</strong> Advance payments are non-refundable.</li><li><strong>Safety First:</strong> Aerial firing is strictly banned.</li><li><strong>Damages:</strong> Any damage will be charged in full.</li><li><strong>Cleanliness:</strong> Spitting and littering prohibited.</li><li><strong>Personal Belongings:</strong> Management not liable for loss.</li><li><strong>Supervision:</strong> Parents must supervise children near pools.</li><li><strong>Booking Confirmation:</strong> Verify facilities before booking.</li></ul><div style="margin-top:1.5rem; text-align:right;"><button class="btn-outline" id="closeModalFooterBtn">Close</button></div></div></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide'); let curr = 0;
+  function nextSlide() { slides[curr].classList.remove('active'); curr = (curr + 1) % slides.length; slides[curr].classList.add('active'); }
+  let slideInterval = setInterval(nextSlide, 5000);
+  const heroSec = document.querySelector('.hero');
+  if(heroSec) { heroSec.addEventListener('mouseenter', () => clearInterval(slideInterval)); heroSec.addEventListener('mouseleave', () => { slideInterval = setInterval(nextSlide, 5000); }); }
+
+  const menuBtn = document.getElementById('menuToggleBtn'); const mobileMenu = document.getElementById('mobileMenu'); const bodyOverlay = document.getElementById('bodyOverlay'); const closeMenu = document.getElementById('closeMobileMenu');
+  function openMobileMenu() { mobileMenu.classList.add('active'); bodyOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMobileMenuFn() { mobileMenu.classList.remove('active'); bodyOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+  if(menuBtn) menuBtn.addEventListener('click', openMobileMenu);
+  if(closeMenu) closeMenu.addEventListener('click', closeMobileMenuFn);
+  if(bodyOverlay) bodyOverlay.addEventListener('click', closeMobileMenuFn);
+  document.querySelectorAll('.mobile-menu-links a').forEach(link => link.addEventListener('click', closeMobileMenuFn));
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { const targetId = this.getAttribute('href'); if(targetId === "#" || targetId === "") return; const targetEl = document.querySelector(targetId); if(targetEl) { e.preventDefault(); targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); closeMobileMenuFn(); } }); });
+
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('appear'); observer.unobserve(entry.target); } }); }, { threshold: 0.15 });
+  fadeElements.forEach(el => observer.observe(el));
+
+  const grid = document.getElementById('reviewsGrid'); const dotsContainer = document.getElementById('swipeDots'); let cards = []; if (grid) cards = Array.from(grid.children); let currentIndex = 0, startX = 0, isDragging = false;
+  function updateDots() { if (!dotsContainer) return; dotsContainer.innerHTML = ''; for (let i = 0; i < cards.length; i++) { const dot = document.createElement('div'); dot.classList.add('dot'); if (i === currentIndex) dot.classList.add('active'); dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); }); dotsContainer.appendChild(dot); } }
+  function updateCarousel() { if (window.innerWidth > 650) return; const cardWidth = cards[0]?.offsetWidth + 24; if (cardWidth && grid) grid.style.transform = `translateX(-${currentIndex * cardWidth}px)`; updateDots(); }
+  function handleTouchStart(e) { if (window.innerWidth <= 650) { startX = e.touches[0].clientX; isDragging = true; } }
+  function handleTouchMove(e) { if (!isDragging || window.innerWidth > 650 || !grid) return; const diff = startX - e.touches[0].clientX; if (Math.abs(diff) > 50) { if (diff > 0 && currentIndex < cards.length - 1) currentIndex++; else if (diff < 0 && currentIndex > 0) currentIndex--; updateCarousel(); isDragging = false; } }
+  function handleTouchEnd() { isDragging = false; }
+  if (grid && cards.length) { grid.addEventListener('touchstart', handleTouchStart); grid.addEventListener('touchmove', handleTouchMove); grid.addEventListener('touchend', handleTouchEnd); window.addEventListener('resize', () => { if (window.innerWidth > 650 && grid) grid.style.transform = ''; else updateCarousel(); }); setTimeout(updateCarousel, 100); updateDots(); }
+
+  const modal = document.getElementById('termsModal'); const showBtn = document.getElementById('showMoreTermsBtn'); const closeBtns = [document.getElementById('closeModalBtn'), document.getElementById('closeModalFooterBtn')];
+  if(showBtn) showBtn.addEventListener('click', () => modal.style.display = 'flex');
+  closeBtns.forEach(btn => { if(btn) btn.addEventListener('click', () => modal.style.display = 'none'); });
+  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
